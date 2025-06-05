@@ -1,0 +1,63 @@
+<div class="container">
+  <!-- Timesheet Card -->
+  <div class="card timesheet-card mb-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="card-title">Today's Timesheet</h5>
+        <span class="badge bg-primary">{{ currentTime | date:'EEE MMM dd yyyy' }}</span>
+      </div>
+
+      <div class="time-display text-center mb-4">
+        <div class="current-time">{{ currentTime | date:'HH:mm:ss' }}</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <button 
+            class="btn btn-success w-100" 
+            (click)="clockIn()" 
+            [disabled]="isClockedIn">
+            <i class="fas fa-sign-in-alt"></i> Clock In
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button 
+            class="btn btn-danger w-100" 
+            (click)="clockOut()" 
+            [disabled]="isClockedIn">
+            <i class="fas fa-sign-out-alt"></i> Clock Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attendance History -->
+  <div class="card">
+    <div class="card-header text-white">
+      <h5 class="mb-0">Attendance History</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Clock In</th>
+              <th>Clock Out</th>
+              <th>Work Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of attendanceHistory">
+              <td>{{ record.date }}</td>
+              <td>{{ record.clockIn }}</td>
+              <td>{{ record.clockOut }}</td>
+              <td>{{ record.workHours }} hrs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

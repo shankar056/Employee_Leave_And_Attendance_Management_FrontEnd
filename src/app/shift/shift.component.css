@@ -1,0 +1,206 @@
+/* Container Styling */
+.container {
+    min-height: 100vh;
+    background: linear-gradient(to right, #03162d, #030f2f);
+    color: white;
+    padding: 2rem 2rem 0 2rem;
+    margin: 0;
+    max-width: 100%;
+    position: relative;
+    top: -24px;
+    margin-bottom: -24px;
+}
+
+/* Card Styling */
+.card, .date-selector-card, .filter-card, .table-card, .stat-card {
+    background: linear-gradient(to right, #1f3862, #1b4f8e);
+    border: 2px solid #FFD700;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.card:hover, .stat-card:hover {
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+/* Stats Styling */
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+}
+
+.stat-icon i {
+    font-size: 24px;
+}
+
+.counter {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+/* Form Controls */
+.form-control, .input-group-text {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #FFD700;
+    color: white;
+}
+
+/* Table Styling */
+.table {
+    color: white;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    background: linear-gradient(to right, #04093e, #2d3d75);
+}
+
+.table thead th {
+    background: linear-gradient(to right, #04093e, #2d3d75);
+    border-color: rgba(255, 215, 0, 0.2);
+    color: white;
+    font-weight: 600;
+}
+
+.table tbody td {
+    background:linear-gradient(to right, #04093e, #2d3d75);
+    border-color: rgba(255, 215, 0, 0.2);
+    color: white !important;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.table-bordered {
+    border-color: rgba(255, 215, 0, 0.2);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Shift Type Styling */
+.shift-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.day-shift {
+    background-color: rgba(255, 243, 205, 0.2);
+    color: #FFD700;
+}
+
+.night-shift {
+    background-color: rgba(204, 229, 255, 0.2);
+    color: #93c5fd;
+}
+
+/* Badge and Button Styling */
+.badge {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    background: rgba(255, 215, 0, 0.2);
+    color: #FFD700;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.btn-sm:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    border: none;
+}
+
+.btn-dark {
+    background: linear-gradient(to right, #1f2937, #374151);
+    border: none;
+}
+
+/* Custom Scrollbar */
+.table-responsive::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+
+    .counter {
+        font-size: 2rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .btn-sm {
+        width: 100%;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Footer gap fix */
+.table-responsive {
+    margin-bottom: 0;
+}

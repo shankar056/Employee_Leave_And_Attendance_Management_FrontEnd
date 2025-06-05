@@ -1,0 +1,151 @@
+<div class="container mt-4">
+  <!-- Leave Status Cards -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="fas fa-check-circle text-success mb-3" style="font-size: 2rem;"></i>
+          <h5 class="card-title">Approved</h5>
+          <p class="card-text">{{ approvedCount }} Approved Leaves</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="fas fa-hourglass-half text-warning mb-3" style="font-size: 2rem;"></i>
+          <h5 class="card-title">Pending</h5>
+          <p class="card-text">{{ pendingCount }} Pending Leaves</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <i class="fas fa-times-circle text-danger mb-3" style="font-size: 2rem;"></i>
+          <h5 class="card-title">Rejected</h5>
+          <p class="card-text">{{ rejectedCount }} Rejected Leaves</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Form -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-3">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input
+            type="date"
+            id="startDate"
+            class="form-control"
+            [(ngModel)]="filters.startDate"
+            name="startDate"
+            (ngModelChange)="applyFilters()"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="employeeId" class="form-label">Employee ID</label>
+          <input
+            type="number"
+            id="employeeId"
+            class="form-control"
+            [(ngModel)]="filters.employeeId"
+            name="employeeId"
+            (ngModelChange)="applyFilters()"
+          />
+        </div>
+        <div class="col-md-3">
+          <label for="leaveType" class="form-label">Leave Type</label>
+          <select
+            id="leaveType"
+            class="form-select"
+            [(ngModel)]="filters.leaveType"
+            name="leaveType"
+            (ngModelChange)="applyFilters()"
+          >
+            <option value="">All</option>
+            <option value="Sick Leave">Sick Leave</option>
+            <option value="Casual Leave">Casual Leave</option>
+            <option value="Earned Leave">Earned Leave</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="status" class="form-label">Status</label>
+          <select
+            id="status"
+            class="form-select"
+            [(ngModel)]="filters.status"
+            name="status"
+            (ngModelChange)="applyFilters()"
+          >
+            <option value="">All</option>
+            <option value="Approved">Approved</option>
+            <option value="Pending">Pending</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Leave Requests Table -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-blue text-white">
+      <h5 class="mb-0">All Leave Requests</h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Employee Id</th>
+            <th>Leave Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Days</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let leave of filteredLeaves">
+            <td>{{ leave.employeeId }}</td>
+            <td>{{ leave.leaveType }}</td>
+            <td>{{ leave.startDate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ leave.endDate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ calculateDays(leave.startDate, leave.endDate) }}</td>
+            <td>
+              <span
+                class="badge"
+                [ngClass]="{
+                  'bg-success': leave.status === 'Approved',
+                  'bg-warning': leave.status === 'Pending',
+                  'bg-danger': leave.status === 'Rejected'
+                }"
+              >
+                {{ leave.status }}
+              </span>
+            </td>
+            <td>
+              <button
+                *ngIf="leave.status === 'Pending'"
+                class="btn btn-sm btn-success me-2"
+                (click)="approveLeave(leave.leaveId)"
+              >
+                <i class="fas fa-check"></i>
+              </button>
+              <button
+                *ngIf="leave.status === 'Pending'"
+                class="btn btn-sm btn-danger"
+                (click)="rejectLeave(leave.leaveId)"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

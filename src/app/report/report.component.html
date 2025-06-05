@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="content-wrapper">
+    <div class="container-fluid py-4">
+      <!-- Manager Input Section -->
+      <div *ngIf="userRole === 'Manager'" class="card mb-4">
+        <div class="card-body">
+          <h4 class="mb-3">Generate Employee Report</h4>
+          <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+              <label for="employeeId" class="form-label">Employee ID</label>
+              <input
+                type="number"
+                class="form-control"
+                id="employeeId"
+                [(ngModel)]="employeeIdInput"
+                placeholder="Enter employee ID"
+              >
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-primary w-100"
+                (click)="generateReport()"
+                [disabled]="!employeeIdInput"
+              >
+                Generate Report
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Report Display -->
+      <app-employeereport
+        *ngIf="selectedEmployeeId"
+        [employeeId]="selectedEmployeeId">
+      </app-employeereport>
+    </div>
+  </div>
+</div>

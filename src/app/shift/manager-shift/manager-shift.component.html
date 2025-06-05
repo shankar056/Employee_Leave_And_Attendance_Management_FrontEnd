@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="content-wrapper">
+    <div class="container mt-4">
+      <!-- Horizontal Statistics Bar -->
+      <div class="d-flex align-items-center justify-content-between mb-4 stats-bar">
+        <!-- Date Picker -->
+        <div class="d-flex align-items-center">
+          <label for="selectedDate" class="form-label me-2 fw-bold">Select Date:</label>
+          <input
+            type="date"
+            id="selectedDate"
+            class="form-control"
+            [(ngModel)]="selectedDate"
+            (ngModelChange)="onDateChange()"
+            [min]="minDate"
+          />
+        </div>
+
+        <!-- Statistics -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="stat-item">
+            <i class="fas fa-users text-warning"></i>
+            <span class="stat-label">Unassigned:</span>
+            <span class="stat-value">{{ unassignedCount }}</span>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-sun text-primary"></i>
+            <span class="stat-label">Day Shifts:</span>
+            <span class="stat-value">{{ dayShiftCount }}</span>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-moon text-dark"></i>
+            <span class="stat-label">Night Shifts:</span>
+            <span class="stat-value">{{ nightShiftCount }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unassigned Employees Table -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="fas fa-users"></i> Unassigned Employees
+          </h5>
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let employee of unassignedEmployees">
+                <td>{{ employee.id }}</td>
+                <td>{{ employee.name }}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary me-2" (click)="assignShift(employee.id, 'Day')">
+                    <i class="fas fa-sun"></i> Assign Day
+                  </button>
+                  <button class="btn btn-sm btn-dark" (click)="assignShift(employee.id, 'Night')">
+                    <i class="fas fa-moon"></i> Assign Night
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="unassignedEmployees.length === 0" class="text-center text-muted">No unassigned employees found.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

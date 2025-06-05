@@ -1,0 +1,53 @@
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3eded;
+}
+
+.content {
+  flex: 1;
+  /* padding: 10px; */
+  background-color: #f4f4f4;
+}
+
+.navbar {
+  background-color: #f4eaea;  /* Already black */
+  /* padding: 15px 0; */
+}
+
+
+.navbar-brand {
+  font-weight: bold;
+  color: #ffffff !important;
+}
+
+.navbar-brand:hover {
+  color: #e0e0e0 !important;
+}
+
+footer {
+  background-color: #000000;  /* Already black */
+  color: #ffffff;
+  /* padding: 1rem; */
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  footer {
+    font-size: 0.85rem;
+  }
+
+  .content {
+    padding: 10px;
+  }
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+@media (max-width: 992px) {
+  .navbar .btn-outline-dark {
+    margin-right: auto; /* Move the "Sign in" button to the left */
+  }
+}

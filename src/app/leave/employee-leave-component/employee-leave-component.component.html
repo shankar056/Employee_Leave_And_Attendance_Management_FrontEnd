@@ -1,0 +1,152 @@
+<div class="container">
+  <div class="content-wrapper">
+    <div class="container mt-4">
+      <!-- Leave Balance Cards -->
+      <div class="row mb-4">
+        <div class="col-md-4" *ngFor="let balance of leaveBalances">
+          <div class="card text-center shadow-sm leave-card">
+            <div class="card-body">
+              <!-- Font Awesome Icons -->
+              <i
+                class="fas"
+                [ngClass]="{
+                  'fa-briefcase-medical text-danger': balance.type === 'Sick Leave',
+                  'fa-calendar-check text-primary': balance.type === 'Casual Leave',
+                  'fa-award text-success': balance.type === 'Earned Leave'
+                }"
+                style="font-size: 2rem;"
+              ></i>
+              <h5 class="card-title mt-2">{{ balance.type }}</h5>
+              <p class="card-text">{{ balance.remaining }} days available</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apply Leave Form -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Apply for Leave</h5>
+          <form (ngSubmit)="applyForLeave()">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="leaveType" class="form-label">Leave Type</label>
+                <select id="leaveType" class="form-select" [(ngModel)]="leaveRequest.leaveType" name="leaveType" required>
+                  <option value="sick">Sick Leave</option>
+                  <option value="casual">Casual Leave</option>
+                  <option value="paid">Earned Leave</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="startDate" class="form-label">Start Date</label>
+                <input type="date" id="startDate" class="form-control" [(ngModel)]="leaveRequest.startDate" name="startDate" required />
+              </div>
+              <div class="col-md-4">
+                <label for="endDate" class="form-label">End Date</label>
+                <input type="date" id="endDate" class="form-control" [(ngModel)]="leaveRequest.endDate" name="endDate" required />
+              </div>
+            </div>
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
+          </form>
+          <p *ngIf="errorMessage" class="text-danger mt-2">{{ errorMessage }}</p>
+        </div>
+      </div>
+
+      <!-- Search Form -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Search Leave History</h5>
+          <form class="row g-3">
+            <div class="col-md-4">
+              <label for="searchLeaveType" class="form-label">Leave Type</label>
+              <select
+                id="searchLeaveType"
+                class="form-select"
+                [(ngModel)]="searchFilters.leaveType"
+                name="searchLeaveType"
+                (ngModelChange)="applyFilters()"
+              >
+                <option value="">All</option>
+                <option value="Sick Leave">Sick Leave</option>
+                <option value="Casual Leave">Casual Leave</option>
+                <option value="Earned Leave">Earned Leave</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="searchStatus" class="form-label">Status</label>
+              <select
+                id="searchStatus"
+                class="form-select"
+                [(ngModel)]="searchFilters.status"
+                name="searchStatus"
+                (ngModelChange)="applyFilters()"
+              >
+                <option value="">All</option>
+                <option value="Approved">Approved</option>
+                <option value="Pending">Pending</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="searchStartDate" class="form-label">Start Date</label>
+              <input
+                type="date"
+                id="searchStartDate"
+                class="form-control"
+                [(ngModel)]="searchFilters.startDate"
+                name="searchStartDate"
+                (ngModelChange)="applyFilters()"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Leave History Table -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Leave History</h5>
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Leave Type</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Days</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let leave of filteredLeaveHistory">
+                <td>{{ leave.leaveType }}</td>
+                <td>{{ leave.startDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ leave.endDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ calculateDays(leave.startDate, leave.endDate) }}</td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': leave.status === 'Approved',
+                      'bg-warning': leave.status === 'Pending',
+                      'bg-danger': leave.status === 'Rejected'
+                    }"
+                  >
+                    {{ leave.status }}
+                  </span>
+                </td>
+                <td>
+                  <button *ngIf="leave.status === 'Pending'" class="btn btn-sm btn-danger" (click)="deleteLeave(leave.leaveId)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

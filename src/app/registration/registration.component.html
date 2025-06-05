@@ -1,0 +1,130 @@
+<div class="container mt-5">
+  <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+    <div class="card-header bg-black text-white text-center py-3">
+      <h4 class="mb-0"><i class="fas fa-user-plus me-2"></i>Register</h4>
+      <p class="mb-0">Create your account</p>
+    </div>
+    <div class="card-body p-4">
+      <!-- Error Alert -->
+      <div class="alert alert-danger" *ngIf="registrationError" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i> Registration failed. Please try again.
+      </div>
+
+      <!-- Success Alert -->
+      <div class="alert alert-success" *ngIf="registrationSuccess" role="alert">
+        <i class="fas fa-check-circle me-2"></i> Registration successful! Redirecting to login...
+      </div>
+
+      <!-- Registration Form -->
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <!-- Employee ID Field -->
+        <div class="mb-3">
+          <label for="employeeId" class="form-label">Employee ID</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-secondary">
+              <i class="fas fa-id-badge"></i>
+            </span>
+            <input
+              type="number"
+              class="form-control"
+              id="employeeId"
+              formControlName="employeeId"
+              placeholder="Enter Employee ID"
+            />
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="registrationForm.get('employeeId')?.invalid && registrationForm.get('employeeId')?.touched">
+            Employee ID is required.
+          </div>
+        </div>
+
+        <!-- Name Field -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-secondary">
+              <i class="fas fa-user"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              formControlName="name"
+              placeholder="Enter your name"
+            />
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
+            Name is required.
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-secondary">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+            Please enter a valid email address.
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-secondary">
+              <i class="fas fa-lock"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              formControlName="password"
+              placeholder="Enter your password"
+            />
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+            Password must be at least 6 characters long.
+          </div>
+        </div>
+
+        <!-- Role Field -->
+        <div class="mb-3">
+          <label for="role" class="form-label">Role</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light text-secondary">
+              <i class="fas fa-user-tag"></i>
+            </span>
+            <select class="form-select" id="role" formControlName="role">
+              <option value="" disabled>Select Role</option>
+              <option value="Employee">Employee</option>
+              <option value="Manager">Manager</option>
+            </select>
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="registrationForm.get('role')?.invalid && registrationForm.get('role')?.touched">
+            Role is required.
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+            <i class="fas fa-arrow-left me-2"></i>Cancel
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">
+            <i class="fas fa-user-plus me-2"></i>Register
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

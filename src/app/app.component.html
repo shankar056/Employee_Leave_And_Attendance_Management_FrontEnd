@@ -1,0 +1,43 @@
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand text-white bold" href="#">Employee Attendance System</a>
+      <div class="d-flex align-items-center">
+        <!-- Display username and logout button after login -->
+        <span *ngIf="isLoggedIn" class="me-3 text-white">{{ username }}</span>
+        <button *ngIf="isLoggedIn" class="btn btn-outline-light me-2" (click)="logout()">Logout</button>
+        <!-- Display sign-in button before login -->
+        <a *ngIf="!isLoggedIn" class="btn btn-outline-light me-2" routerLink="/login">Sign in</a>
+      </div>
+      <!-- Navbar Toggler for Sidebar -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidebar"
+        aria-controls="sidebar"
+        aria-expanded="false"
+        aria-label="Toggle sidebar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Sidebar and Content -->
+  <div class="d-flex">
+    <!-- Sidebar visible only for logged-in managers -->
+    <app-sidebar *ngIf="isLoggedIn" id="sidebar"></app-sidebar>
+    <div class="content flex-grow-1 bg-black text-white">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-black text-center py-3 shadow-sm">
+    <div class="container">
+      <p>&copy; 2025 Employee Attendance System. All rights reserved.</p>
+    </div>
+  </footer>
+</body>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="content-wrapper">
+    <div class="container mt-4">
+      <!-- Redesigned Search Card -->
+      <div class="card shadow-sm mb-4 search-card">
+        <div class="card-body d-flex align-items-center">
+          <div class="me-3">
+            <i class="fas fa-search fa-2x text-primary"></i>
+          </div>
+          <div class="flex-grow-1">
+            <label for="searchDate" class="form-label fw-bold">Search Shifts by Date</label>
+            <input
+              type="date"
+              id="searchDate"
+              class="form-control"
+              [(ngModel)]="searchDate"
+              (ngModelChange)="applySearch()"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Shifts Table -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            <i class="fas fa-calendar-alt"></i> My Shifts
+          </h5>
+          <table class="table table-bordered table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>Shift Type</th>
+                <th>Date</th>
+                <th>Swap Request</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let shift of filteredShifts">
+                <td>{{ shift.shiftType }}</td>
+                <td>{{ shift.date | date: 'dd/MM/yyyy' }}</td>
+                <td>
+                  <button
+                    class="btn btn-sm"
+                    [ngClass]="shift.swapRequested ? 'btn-secondary' : 'btn-primary'"
+                    [disabled]="shift.swapRequested"
+                    (click)="requestSwap(shift.id)"
+                  >
+                    <i class="fas" [ngClass]="shift.swapRequested ? 'fa-check-circle' : 'fa-exchange-alt'"></i>
+                    {{ shift.swapRequested ? 'Swap Requested' : 'Request Swap' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="filteredShifts.length === 0" class="text-center text-muted">No shifts found.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

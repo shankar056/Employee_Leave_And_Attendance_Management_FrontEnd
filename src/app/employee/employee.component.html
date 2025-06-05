@@ -1,0 +1,106 @@
+<div class="container mt-4">
+  <!-- Dashboard Title -->
+  <div class="d-flex align-items-center mb-4">
+    <i
+      [class]="userRole === 'Employee' ? 'fas fa-user-circle text-primary' : 'fas fa-users-gear text-primary'"
+      style="font-size: 2rem;">
+    </i>
+    <h2 class="ms-3">
+      {{ userRole === 'Employee' ? 'Profile' : 'Employee Management' }}
+    </h2>
+  </div>
+ 
+  <!-- Employee Profile View -->
+  <div *ngIf="userRole === 'Employee'">
+    <app-add-employee
+      [employee]="editingEmployee"
+      (formSubmit)="onFormSubmit($event)"
+      (cancel)="isAddEmployeeFormVisible = false">
+    </app-add-employee>
+  </div>
+ 
+  <!-- Manager View -->
+  <div *ngIf="userRole === 'Manager'">
+    <div *ngIf="!isAddEmployeeFormVisible">
+      <!-- Search and Add Section -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label for="searchQuery" class="form-label">Search Employees</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input
+                  type="text"
+                  id="searchQuery"
+                  class="form-control"
+                  placeholder="Search by name, email, or department"
+                  [(ngModel)]="searchQuery"
+                  (input)="filterEmployees()"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 text-end">
+              <label class="form-label d-block">&nbsp;</label>
+              <button class="btn btn-success w-100" (click)="showAddEmployeeForm()">
+                <i class="fas fa-plus"></i> Add Employee
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Employee List Table -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Employee List</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Department</th>
+                  <th>Contact</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let employee of filteredEmployees">
+                  <td>{{ employee.id }}</td>
+                  <td>{{ employee.name }}</td>
+                  <td>{{ employee.email }}</td>
+                  <td>
+                    <span class="badge bg-info">{{ employee.role }}</span>
+                  </td>
+                  <td>{{ employee.department }}</td>
+                  <td>{{ employee.contactno }}</td>
+                  <td class="text-center">
+                    <button class="btn btn-sm btn-warning me-2" (click)="editEmployee(employee)">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteEmployee(employee.id)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Add/Update Employee Form -->
+    <app-add-employee
+      *ngIf="isAddEmployeeFormVisible"
+      [employee]="editingEmployee"
+      (formSubmit)="onFormSubmit($event)"
+      (cancel)="isAddEmployeeFormVisible = false">
+    </app-add-employee>
+  </div>
+</div>

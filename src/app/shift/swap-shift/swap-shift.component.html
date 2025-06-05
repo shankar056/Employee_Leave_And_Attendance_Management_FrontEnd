@@ -1,0 +1,164 @@
+<div class="container">
+  <div class="content-wrapper">
+    <div class="container mt-4">
+      <!-- Date Selection with Icon -->
+      <div class="card shadow-sm mb-4 date-selector-card">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <div class="input-group">
+                <span class="input-group-text bg-primary text-white">
+                  <i class="fas fa-calendar-alt"></i>
+                </span>
+                <input 
+                  type="date" 
+                  id="selectedDate" 
+                  class="form-control"
+                  [(ngModel)]="selectedDate"
+                  (ngModelChange)="onDateChange()"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="row mb-4 g-3">
+        <div class="col-md-4">
+          <div class="card shadow-sm stat-card">
+            <div class="card-body text-center">
+              <div class="stat-icon bg-primary text-white">
+                <i class="fas fa-sun"></i>
+              </div>
+              <h5 class="card-title mt-3">Day Shifts</h5>
+              <h2 class="mb-0 counter">{{ shiftCounts.dayShifts }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm stat-card">
+            <div class="card-body text-center">
+              <div class="stat-icon bg-dark text-white">
+                <i class="fas fa-moon"></i>
+              </div>
+              <h5 class="card-title mt-3">Night Shifts</h5>
+              <h2 class="mb-0 counter">{{ shiftCounts.nightShifts }}</h2>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm stat-card">
+            <div class="card-body text-center">
+              <div class="stat-icon bg-warning">
+                <i class="fas fa-exchange-alt"></i>
+              </div>
+              <h5 class="card-title mt-3">Swap Requests</h5>
+              <h2 class="mb-0 counter">{{ shiftCounts.swapRequests }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Filters -->
+      <div class="card shadow-sm mb-4 filter-card">
+        <div class="card-body">
+          <h5 class="card-title mb-3">
+            <i class="fas fa-filter text-primary"></i> Advanced Search
+          </h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Employee ID"
+                  [(ngModel)]="searchFilters.employeeId"
+                  (ngModelChange)="applyFilters()"
+                >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                <input
+                  type="date"
+                  class="form-control"
+                  [(ngModel)]="searchFilters.date"
+                  (ngModelChange)="applyFilters()"
+                >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                <select
+                  class="form-select"
+                  style="background-color: #2d3d75; color: white;"
+                  [(ngModel)]="searchFilters.shiftType"
+                  (ngModelChange)="applyFilters()"
+                >
+                  <option value="">All Shifts</option>
+                  <option value="Day">Day Shift</option>
+                  <option value="Night">Night Shift</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shifts Table -->
+      <div class="card shadow-sm table-card">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="fas fa-list text-primary"></i> Shift Details
+          </h5>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Employee ID</th>
+                  <th>Shift Type</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let shift of filteredShifts">
+                  <td>
+                    <span class="employee-id">{{ shift.employeeId }}</span>
+                  </td>
+                  <td>
+                    <span class="shift-type" [class.day-shift]="shift.shiftType === 'Day'" [class.night-shift]="shift.shiftType === 'Night'">
+                      <i [class]="shift.shiftType === 'Day' ? 'fas fa-sun' : 'fas fa-moon'"></i>
+                      {{ shift.shiftType }}
+                    </span>
+                  </td>
+                  <td>{{ shift.date | date: 'dd/MM/yyyy' }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="shift.swapRequested ? 'bg-warning' : 'bg-success'">
+                      {{ shift.swapRequested ? 'Swap Requested' : 'Active' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons" *ngIf="shift.swapRequested">
+                      <button class="btn btn-success btn-sm me-2" (click)="approveSwap(shift.id)">
+                        <i class="fas fa-check"></i>
+                      </button>
+                      <button class="btn btn-danger btn-sm" (click)="rejectSwap(shift.id)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

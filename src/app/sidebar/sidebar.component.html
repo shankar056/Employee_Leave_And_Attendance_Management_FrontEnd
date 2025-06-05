@@ -1,0 +1,47 @@
+<nav class="sidebar shadow-sm collapse d-lg-block" id="sidebar">
+  <ul class="list-unstyled">
+    <li>
+      <a routerLink="/employee" routerLinkActive="active">
+        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+      </a>
+    </li>
+    <li>
+      <a routerLink="/leave" routerLinkActive="active">
+        <i class="fas fa-calendar-alt me-2"></i> Leave
+      </a>
+    </li>
+
+    <!-- Shift Menu Items -->
+    <ng-container *ngIf="userRole === 'Manager'">
+      <li>
+        <a routerLink="/manager-shift" routerLinkActive="active">
+          <i class="fas fa-users-cog me-2"></i> Manage Shifts
+        </a>
+      </li>
+      <li>
+        <a routerLink="/swap-shift" routerLinkActive="active">
+          <i class="fas fa-exchange-alt me-2"></i> Swap Requests
+        </a>
+      </li>
+    </ng-container>
+    
+    <ng-container *ngIf="userRole === 'Employee'">
+      <li>
+        <a routerLink="/shift" routerLinkActive="active">
+          <i class="fas fa-clock me-2"></i> Shift
+        </a>
+      </li>
+    </ng-container>
+
+    <li>
+      <a routerLink="/eattendance" routerLinkActive="active">
+        <i class="fas fa-user-check me-2"></i> Attendance
+      </a>
+    </li>
+    <li>
+      <a routerLink="/report" routerLinkActive="active">
+        <i class="fas fa-chart-bar me-2"></i> Report
+      </a>
+    </li>
+  </ul>
+</nav>
