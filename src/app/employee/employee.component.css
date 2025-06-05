@@ -105,6 +105,13 @@
   font-size: 0.9rem;
   background: linear-gradient(to right, #04093e, #2d3d75);
 }
+.form-control::placeholder,
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: rgb(255, 255, 255) !important;
+  opacity: 1;
+}
 
 .custom-table thead th, .table thead th {
   background: linear-gradient(to right, #04093e, #2d3d75);
@@ -228,6 +235,25 @@ select.form-select option {
   background: rgba(255, 215, 0, 0.5);
 }
 
+/* Button width adjustment */
+.btn.btn-success.w-100 {
+  width: 70% !important;  /* Override Bootstrap's w-100 */
+  margin: 0 auto;         /* Center the button */
+  display: block;         /* Ensure margin auto works */
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .btn.btn-success.w-100 {
+    width: 80% !important;  /* Slightly wider on mobile */
+  }
+}
+
+@media (max-width: 576px) {
+  .btn.btn-success.w-100 {
+    width: 90% !important;  /* Even wider on very small screens */
+  }
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {

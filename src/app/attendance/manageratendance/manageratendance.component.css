@@ -1,0 +1,67 @@
+.card {
+    background: linear-gradient(to right, #04093e, #2d3d75);
+    border: 2px solid #FFD700;  
+    color: white;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+ 
+  .card:hover {
+    transform: translateY(-2px);
+  }
+ 
+  .input-group {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+ 
+  .input-group-text {
+    background-color:  #0580e5 ;
+    border-right: none;
+  }
+ 
+  input[type="date"],
+  input[type="text"] {
+  background: linear-gradient(to right, #04093e, #2d3d75) !important;
+  border-left: none;
+  color: white;
+  border: 1px solid #FFD700;
+  }
+ 
+  input[type="date"]:focus,
+  input[type="text"]:focus { 
+    box-shadow: none;
+    border-color: #ced4da;
+  }
+  input[type="date"]::placeholder,
+  input[type="text"]::placeholder {
+  color: rgb(255, 255, 255);
+}
+
+ 
+  .table {
+    color: white;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    background: linear-gradient(to right, #04093e, #2d3d75);
+  }
+  
+  .table thead th {
+    background: linear-gradient(to right, #04093e, #2d3d75);
+    border-color: rgba(255, 215, 0, 0.2);
+    color: white;
+    font-weight: 600;
+  }
+  
+  .table tbody td {
+    background:linear-gradient(to right, #04093e, #2d3d75);
+    border-color: rgba(255, 215, 0, 0.2);
+    color: white !important;
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .col-md-4 {
+      margin-bottom: 1rem;
+    }
+  }
+ 

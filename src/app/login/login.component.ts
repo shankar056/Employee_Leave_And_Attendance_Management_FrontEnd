@@ -28,13 +28,14 @@ export class LoginComponent {
         console.log("Login successful", response);
         localStorage.setItem('token', response.token); // Store the token
         localStorage.setItem('username', username); // Store the username
-  
         // Fetch and store the user's role
         this.userService.getUserRole(username).subscribe({
           next: (role) => {
             console.log("User role:", role);
             localStorage.setItem('role', role); // Store the role
-            this.router.navigate(['/']); // Navigate to the landing page
+            this.router.navigate(['/']).then(()=>{
+            window.location.reload(); // Reload the page to apply changes
+            }); // Navigate to the landing page
           },
           error: (error) => {
             console.error("Failed to fetch user role", error);

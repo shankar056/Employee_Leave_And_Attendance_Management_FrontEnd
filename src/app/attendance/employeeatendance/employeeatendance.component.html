@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4">
   <!-- Timesheet Card -->
   <div class="card timesheet-card mb-4">
     <div class="card-body">
@@ -6,32 +6,84 @@
         <h5 class="card-title">Today's Timesheet</h5>
         <span class="badge bg-primary">{{ currentTime | date:'EEE MMM dd yyyy' }}</span>
       </div>
-
+ 
       <div class="time-display text-center mb-4">
         <div class="current-time">{{ currentTime | date:'HH:mm:ss' }}</div>
+        <div *ngIf="todayRecord" class="attendance-status mt-2">
+          <div *ngIf="todayRecord.clockIn" class="text-success">
+            Clocked in at: {{ todayRecord.clockIn }}
+          </div>
+          <div *ngIf="todayRecord.clockOut && todayRecord.clockOut !== '-'" class="text-danger">
+            Clocked out at: {{ todayRecord.clockOut }}
+          </div>
+        </div>
       </div>
-
+ 
       <div class="row">
         <div class="col-md-6">
-          <button 
-            class="btn btn-success w-100" 
-            (click)="clockIn()" 
-            [disabled]="isClockedIn">
-            <i class="fas fa-sign-in-alt"></i> Clock In
+          <button
+            class="btn btn-success w-100"
+            (click)="clockIn()"
+            [disabled]="getButtonStatus('clockIn').disabled"
+            [title]="getButtonStatus('clockIn').tooltip">
+            <i class="fas" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"
+               [class.fa-sign-in-alt]="!isLoading"></i>
+            {{ isLoading ? 'Processing...' : 'Clock In' }}
           </button>
         </div>
         <div class="col-md-6">
-          <button 
-            class="btn btn-danger w-100" 
-            (click)="clockOut()" 
-            [disabled]="isClockedIn">
-            <i class="fas fa-sign-out-alt"></i> Clock Out
+          <button
+            class="btn btn-danger w-100"
+            (click)="clockOut()"
+            [disabled]="getButtonStatus('clockOut').disabled"
+            [title]="getButtonStatus('clockOut').tooltip">
+            <i class="fas" [class.fa-spinner]="isLoading" [class.fa-spin]="isLoading"
+               [class.fa-sign-out-alt]="!isLoading"></i>
+            {{ isLoading ? 'Processing...' : 'Clock Out' }}
+          </button>
+        </div>
+      </div>
+ 
+      <div class="text-center mt-3">
+        <span class="badge"
+              [class.bg-success]="isClockedIn"
+              [class.bg-warning]="!isClockedIn && !hasCompletedAttendance"
+              [class.bg-info]="hasCompletedAttendance">
+          {{ hasCompletedAttendance ? 'Attendance Completed' :
+             (isClockedIn ? 'Currently Working' : 'Not Clocked In') }}
+        </span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Search Card -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <label for="searchDate" class="form-label">Search by Date</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fas fa-calendar"></i>
+            </span>
+            <input
+              type="date"
+              id="searchDate"
+              class="form-control"
+              [(ngModel)]="searchDate"
+              (change)="filterAttendance()"
+            >
+          </div>
+        </div>
+        <div class="col-md-4 mt-4">
+          <button class="btn bg-primary btn-outline-white" (click)="clearSearch()">
+            <i class="fas fa-times"></i> Clear
           </button>
         </div>
       </div>
     </div>
   </div>
-
+ 
   <!-- Attendance History -->
   <div class="card">
     <div class="card-header text-white">
@@ -49,11 +101,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let record of attendanceHistory">
+            <tr *ngFor="let record of filteredAttendance">
               <td>{{ record.date }}</td>
               <td>{{ record.clockIn }}</td>
               <td>{{ record.clockOut }}</td>
               <td>{{ record.workHours }} hrs</td>
+            </tr>
+            <tr *ngIf="filteredAttendance.length === 0">
+              <td colspan="4" class="text-center">No attendance records found</td>
             </tr>
           </tbody>
         </table>
@@ -61,3 +116,4 @@
     </div>
   </div>
 </div>
+ 

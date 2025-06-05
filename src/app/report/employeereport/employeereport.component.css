@@ -50,7 +50,7 @@
 }
 
 .table th {
-  background-color: rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #04093e, #2d3d75);
   border-color: rgba(255, 255, 255, 0.1);
   padding: 1rem;
   color: #f8faf9;
@@ -120,17 +120,6 @@ canvas {
   background: rgba(255, 215, 0, 0.7);
 }
 
-/* Base background and text color */
-.container {
-  background: linear-gradient(to right, #03162d, #030f2f);
-  color: white;
-}
-
-/* Ensure all text elements are white */
-h1, h2, h3, h4, h5, h6, p, span, label, td, th {
-  color: white;
-}
-
 /* Update existing container styles */
 .container {
   min-height: 100vh;
@@ -150,12 +139,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, td, th {
 
 /* Update placeholder text color */
 .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Ensure table text is white */
-.table {
-  color: white;
+  color: rgba(255, 255, 255, 0.916);
 }
 
 /* Update any links to be visible on dark background */

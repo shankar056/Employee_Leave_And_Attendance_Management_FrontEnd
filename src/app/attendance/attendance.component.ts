@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EmployeeatendanceComponent } from './employeeatendance/employeeatendance.component';
+import { ManageratendanceComponent } from './manageratendance/manageratendance.component';
+ 
 @Component({
   selector: 'app-attendance',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, EmployeeatendanceComponent, ManageratendanceComponent],
   templateUrl: './attendance.component.html',
-  styleUrl: './attendance.component.css'
+  styleUrls: ['./attendance.component.css']
 })
-export class AttendanceComponent {
-
+export class AttendanceComponent implements OnInit {
+  userRole: string | null = null;
+ 
+  ngOnInit(): void {
+    this.userRole = localStorage.getItem('role');
+  }
 }
+ 

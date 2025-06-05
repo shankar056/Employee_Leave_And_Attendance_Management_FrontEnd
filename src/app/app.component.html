@@ -29,7 +29,7 @@
   <div class="d-flex">
     <!-- Sidebar visible only for logged-in managers -->
     <app-sidebar *ngIf="isLoggedIn" id="sidebar"></app-sidebar>
-    <div class="content flex-grow-1 bg-black text-white">
+    <div class="content flex-grow-1 text-white" style="background: linear-gradient(to right, #03162d, #030f2f);">
       <router-outlet></router-outlet>
     </div>
   </div>

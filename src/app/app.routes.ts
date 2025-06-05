@@ -10,6 +10,7 @@ import { SwapShiftComponent } from './shift/swap-shift/swap-shift.component';
 import { ManagerShiftComponent } from './shift/manager-shift/manager-shift.component';
 import { ReportComponent } from './report/report.component';
 import { EmployeeatendanceComponent } from './attendance/employeeatendance/employeeatendance.component';
+import { AttendanceComponent } from './attendance/attendance.component';
 
 export const routes: Routes = [
     { path: '', component: LandingPageComponent }, // Default landing page
@@ -21,6 +22,6 @@ export const routes: Routes = [
     {path:"swap-shift",component:SwapShiftComponent},
     {path:'manager-shift',component:ManagerShiftComponent},
     {path:'report',component:ReportComponent},
-    {path:'eattendance', component:EmployeeatendanceComponent}, // Lazy-loaded attendance component
+    {path:'attendance', component:AttendanceComponent}, // Lazy-loaded attendance component
     { path: '**', redirectTo: '' } // Fallback route
 ];

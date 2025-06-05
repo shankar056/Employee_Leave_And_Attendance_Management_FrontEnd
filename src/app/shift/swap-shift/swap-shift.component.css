@@ -72,6 +72,13 @@
   border-color: #FFD700;
   color: white;
 }
+.form-control::placeholder,
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: rgb(255, 255, 255) !important;
+  opacity: 1;
+}
 
 /* Change option color for select elements */
 select.form-select option {

@@ -2,6 +2,7 @@
 .search-card {
   background-color: #f8f9fa;
   border-left: 5px solid #007bff;
+  width: 60%; 
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -80,7 +81,18 @@
     padding: 1rem;
   }
 }
+@media (max-width: 768px) {
+  .search-card {
+    width: 90%;    /* Slightly wider on mobile */
+    padding: 1rem;
+  }
+}
 
+@media (max-width: 576px) {
+  .search-card {
+    width: 95%;    /* Almost full width on very small screens */
+  }
+}
 /* Table Styling */
 .table {
   color: white;
@@ -98,6 +110,8 @@
 
 .table tbody td {
   border-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  color: white;
 }
 
 /* Form Controls */
