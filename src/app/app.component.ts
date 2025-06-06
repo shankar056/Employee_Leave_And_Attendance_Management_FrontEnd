@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { EmployeeComponent } from './employee/employee.component';
 import { CommonModule } from '@angular/common';
 import { UserService } from './userservice.service';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,LandingPageComponent,SidebarComponent,EmployeeComponent,CommonModule,RouterLink],
+  imports: [RouterOutlet,SidebarComponent,CommonModule,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

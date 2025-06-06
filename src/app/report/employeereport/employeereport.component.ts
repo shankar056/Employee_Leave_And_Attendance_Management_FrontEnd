@@ -139,45 +139,53 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
   }
 
   private createAttendanceChart(): void {
-    const monthlyData = this.reportData?.attendanceReport.monthlyReport['2025-05'];
+    console.log('Creating Attendance Chart');
+    const monthlyData = this.reportData?.attendanceReport.monthlyReport['2025-06'];
     if (!monthlyData) return;
-
+    console.log('Monthly Data:', monthlyData);
     this.attendanceChart = new Chart('attendanceChart', {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: Object.keys(monthlyData.WeeklyAverageHours),
-        datasets: [{
-          label: 'Weekly Average Hours',
-          data: Object.values(monthlyData.WeeklyAverageHours),
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1,
-          fill: true,
-          backgroundColor: 'rgba(75, 192, 192, 0.1)'
-        }]
+      labels: Object.keys(monthlyData.WeeklyAverageHours),
+      datasets: [{
+        label: 'Weekly Average Hours',
+        data: Object.values(monthlyData.WeeklyAverageHours),
+        backgroundColor: 'rgba(22, 209, 209, 0.6)',
+        borderColor: 'rgb(22, 209, 209)',
+        borderWidth: 2,
+        barThickness: 35 // Reduced the width of the bars
+      }]
       },
       options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          title: {
-            display: true,
-            text: 'Weekly Work Hours Distribution'
-          }
+      responsive: true,
+      plugins: {
+        legend: {
+        position: 'top',
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Hours'
-            }
-          }
+        title: {
+        display: true,
+        color: '#000',
+        text: 'Weekly Work Hours Distribution'
+        }
+      },
+      scales: {
+        y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Hours'
+        }
+        },
+        x: {
+        title: {
+          display: true,
+          text: 'Weeks'
+        }
         }
       }
+      }
     });
-  }
+    }
 
   private createLeaveChart(): void {
     if (!this.reportData?.leaveRecords) return;
@@ -193,7 +201,7 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
         labels: Object.keys(leaveStatus),
         datasets: [{
           data: Object.values(leaveStatus),
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          backgroundColor: [ '#81C784','#FF6384','#36A2EB'],
           hoverOffset: 4
         }]
       },
@@ -205,6 +213,7 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
           },
           title: {
             display: true,
+            color: '#000',
             text: 'Leave Request Status Distribution'
           }
         }
@@ -218,24 +227,25 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
     this.shiftChart = new Chart('shiftChart', {
       type: 'doughnut',
       data: {
-        labels: Object.keys(this.reportData.shift.shiftReport),
-        datasets: [{
-          data: Object.values(this.reportData.shift.shiftReport),
-          backgroundColor: ['#4BC0C0', '#FF9F40'],
-          hoverOffset: 4
-        }]
+      labels: Object.keys(this.reportData.shift.shiftReport),
+      datasets: [{
+      data: Object.values(this.reportData.shift.shiftReport),
+      backgroundColor: [ '#505050','#FFD700'], // Darker grey for day, golden for night
+      hoverOffset: 4
+      }]
       },
       options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'right'
-          },
-          title: {
-            display: true,
-            text: 'Shift Distribution'
-          }
-        }
+      responsive: true,
+      plugins: {
+      legend: {
+      position: 'right'
+      },
+      title: {
+      display: true,
+      color: '#000',
+      text: 'Shift Distribution'
+      }
+      }
       }
     });
   }
@@ -283,7 +293,7 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
       
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight-100);
       pdf.save(`employee-report-${new Date().toISOString().split('T')[0]}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
