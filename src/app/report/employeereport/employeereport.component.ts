@@ -139,53 +139,47 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
   }
 
   private createAttendanceChart(): void {
-    console.log('Creating Attendance Chart');
     const monthlyData = this.reportData?.attendanceReport.monthlyReport['2025-06'];
     if (!monthlyData) return;
-    console.log('Monthly Data:', monthlyData);
+    
     this.attendanceChart = new Chart('attendanceChart', {
       type: 'bar',
       data: {
-      labels: Object.keys(monthlyData.WeeklyAverageHours),
-      datasets: [{
-        label: 'Weekly Average Hours',
-        data: Object.values(monthlyData.WeeklyAverageHours),
-        backgroundColor: 'rgba(22, 209, 209, 0.6)',
-        borderColor: 'rgb(22, 209, 209)',
-        borderWidth: 2,
-        barThickness: 35 // Reduced the width of the bars
-      }]
+        labels: Object.keys(monthlyData.WeeklyAverageHours),
+        datasets: [{
+          label: 'Weekly Average Hours',
+          data: Object.values(monthlyData.WeeklyAverageHours),
+          backgroundColor: 'rgba(33, 150, 243, 0.6)',
+          borderColor: '#2196f3',
+          borderWidth: 2,
+          borderRadius: 8,
+          barThickness: 30
+        }]
       },
       options: {
-      responsive: true,
-      plugins: {
-        legend: {
-        position: 'top',
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#fff' }
+          },
+          title: {
+            color: '#fff',
+            font: { size: 16 }
+          }
         },
-        title: {
-        display: true,
-        color: '#000',
-        text: 'Weekly Work Hours Distribution'
+        scales: {
+          y: {
+            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+            ticks: { color: '#fff' }
+          },
+          x: {
+            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+            ticks: { color: '#fff' }
+          }
         }
-      },
-      scales: {
-        y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Hours'
-        }
-        },
-        x: {
-        title: {
-          display: true,
-          text: 'Weeks'
-        }
-        }
-      }
       }
     });
-    }
+  }
 
   private createLeaveChart(): void {
     if (!this.reportData?.leaveRecords) return;
@@ -196,25 +190,22 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
     }, {});
 
     this.leaveChart = new Chart('leaveChart', {
-      type: 'pie',
+      type: 'doughnut',
       data: {
         labels: Object.keys(leaveStatus),
         datasets: [{
           data: Object.values(leaveStatus),
-          backgroundColor: [ '#81C784','#FF6384','#36A2EB'],
-          hoverOffset: 4
+          backgroundColor: ['#4caf50', '#f44336', '#2196f3'],
+          borderWidth: 0,
+          borderRadius: 5
         }]
       },
       options: {
         responsive: true,
         plugins: {
           legend: {
-            position: 'right'
-          },
-          title: {
-            display: true,
-            color: '#000',
-            text: 'Leave Request Status Distribution'
+            position: 'right',
+            labels: { color: '#fff', usePointStyle: true }
           }
         }
       }

@@ -1,11 +1,30 @@
+.container-fluid {
+  background: linear-gradient(to right, #03162d, #030f2f);
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Container Styling */
+.container {
+  min-height: calc(100vh - 64px);
+  background: linear-gradient(to right, #03162d, #030f2f);
+  color: white;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+}
+
+/* Card Styling */
 .card {
   background: linear-gradient(to right, #04093e, #2d3d75);
   border: 2px solid #FFD700;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+  border-radius: 15px;
   color: white;
-  transition: transform 0.3s, box-shadow 0.3s;
-  margin-bottom: 1rem;
-  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .card:hover {
@@ -14,27 +33,31 @@
 }
 
 .card-header {
-  border-radius: 12px 12px 0 0 !important;
-  border: none;
-  padding: 1rem 1.5rem;
-  background: rgba(0, 0, 0, 0.2);
-  color: white;
-}
-
-.card-body {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px 15px 0 0 !important;
   padding: 1.5rem;
 }
 
-.progress {
-  height: 12px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.1);
+/* Card Body */
+.card-body {
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  color: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-.progress-bar {
-  background: linear-gradient(45deg, #3b82f6, #60a5fa);
-  border-radius: 6px;
+.stats-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.stats-value {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .table-responsive {
@@ -44,44 +67,69 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Table Styling */
 .table {
+  color: white;
   margin-bottom: 0;
+  font-size: 0.9rem;
+  background: linear-gradient(to right, #04093e, #2d3d75);
+}
+
+.table thead th {
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  border-color: rgba(255, 215, 0, 0.2);
+  color: white;
+  font-weight: 600;
+}
+
+.table tbody td {
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  border-color: rgba(255, 215, 0, 0.2);
+  color: white !important;
+}
+
+/* Badge Styling */
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  background: rgba(255, 215, 0, 0.2);
   color: white;
 }
 
-.table th {
-  background: linear-gradient(to right, #04093e, #2d3d75);
-  border-color: rgba(255, 255, 255, 0.1);
-  padding: 1rem;
-  color: #f8faf9;
-}
-
-.table td {
-  padding: 1rem;
-  background: linear-gradient(to right, #04093e, #2d3d75);
-  color:#f8faf9;
-  vertical-align: middle;
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-canvas {
-  max-height: 300px;
-  padding: 1rem;
+/* Button Styling */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  width: auto;
+  min-width: 100px;
 }
 
 .btn-primary {
   background: linear-gradient(to right, #3b82f6, #60a5fa);
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  color: white;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
 }
 
-.btn-primary:hover {
+.btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.progress {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #00bcd4, #2196f3);
+  border-radius: 4px;
 }
 
 .leave-type-label {
@@ -90,15 +138,32 @@ canvas {
   margin-bottom: 0.5rem;
 }
 
-.stats-value {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #f9f9f7;
+/* Form Controls */
+.form-control, 
+.form-control:focus {
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  color: white;
+  border: 1px solid #FFD700;
 }
 
-.stats-label {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.8);
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated {
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* Custom scrollbar */
@@ -118,28 +183,6 @@ canvas {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 215, 0, 0.7);
-}
-
-/* Update existing container styles */
-.container {
-  min-height: 100vh;
-  background: linear-gradient(to right, #03162d, #030f2f);
-  padding: 2rem;
-  margin: 0;
-  max-width: 100%;
-  position: relative;
-  top: 0px;
-}
-
-/* Ensure form controls have white text */
-.form-control, 
-.form-control:focus {
-  color: white;
-}
-
-/* Update placeholder text color */
-.form-control::placeholder {
-  color: rgba(255, 255, 255, 0.916);
 }
 
 /* Update any links to be visible on dark background */
@@ -168,17 +211,80 @@ a:hover {
   justify-content: center;
 }
 
+/* Shift Card Animation */
+.shift-card {
+  animation: slideIn 0.6s ease-out;
+  transform-origin: center;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Shift Distribution Animation */
+.shift-stat-item {
+  animation: fadeInStagger 0.5s ease-out backwards;
+}
+
+.shift-stat-item:nth-child(1) { animation-delay: 0.1s; }
+.shift-stat-item:nth-child(2) { animation-delay: 0.2s; }
+.shift-stat-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInStagger {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress Bar Animation */
+.shift-progress-bar {
+  animation: progressFill 1s ease-out forwards;
+  transform-origin: left;
+}
+
+@keyframes progressFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
+  
   .card {
-    margin: 1rem 0;
+    margin: 1rem;
   }
   
   .stats-value {
     font-size: 1.25rem;
   }
   
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    min-width: 80px;
+  }
+  
   .btn-primary {
-    padding: 0.6rem 1.2rem;
+    width: auto;
+    margin-bottom: 0.5rem;
   }
 }

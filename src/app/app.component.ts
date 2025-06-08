@@ -21,7 +21,7 @@ export class AppComponent {
   checkLoginStatus(): void {
     this.username = localStorage.getItem('username');
     this.role = localStorage.getItem('role');
-    this.isLoggedIn = !!this.username; // Check if the user is logged in
+    this.isLoggedIn = !!this.username; 
 
     // Fetch and store the user ID
     if (this.isLoggedIn && this.username) {
@@ -37,7 +37,7 @@ export class AppComponent {
       });
     }
   }
- 
+
   logout(): void {
     localStorage.clear(); // Clear all stored data
     this.isLoggedIn = false;

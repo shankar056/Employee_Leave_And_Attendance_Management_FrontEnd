@@ -34,6 +34,25 @@
   margin: 0 auto; /* Centers the card horizontally */
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.timesheet-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.timesheet-card:hover::before {
+  left: 100%;
 }
 
 .timesheet-card:hover {
@@ -42,39 +61,87 @@
 }
 
 .current-time {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #FFD700;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 10px rgba(255, 215, 0, 0.3);
+  letter-spacing: 2px;
 }
 
 .time-display {
+  background: linear-gradient(135deg, #04093e 0%, #2d3d75 100%);
+  border: 2px solid #FFD700;
+  border-radius: 15px;
   padding: 2rem;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin: 1rem 0;
-  color: white;
+  margin: 1.5rem 0;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.time-display:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.time-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.time-display:hover::before {
+  left: 100%;
 }
 
 /* Button Styling */
 .btn {
-  padding: 1rem;
-  font-weight: 500;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  letter-spacing: 1.5px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  max-width: 200px;
+  min-width: 150px;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.btn-primary {
-  background: linear-gradient(to right, #3b82f6, #60a5fa);
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
 .btn:disabled {
@@ -84,27 +151,40 @@
   cursor: not-allowed;
 }
 
+/* Button Container */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
 /* Form Controls */
 .input-group {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .input-group-text {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-right: none;
-  color: white;
+  border: none;
+  background: transparent;
+  padding: 0.8rem 1.2rem;
+  color: #FFD700;
 }
 
 input[type="date"] {
-  border-left: none;
-  background-color: rgba(255, 255, 255, 0.1);
+  background: transparent;
+  border: none;
   color: white;
+  padding: 0.8rem 1.2rem;
 }
 
 input[type="date"]:focus {
-  box-shadow: none;
-  border-color: #FFD700;
-  background-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
 }
 
 /* Status and Table Styling */
@@ -122,27 +202,39 @@ input[type="date"]:focus {
 
 /* Table Styling */
 .table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  margin: 1.5rem 0;
   color: white;
-  margin-bottom: 0;
   font-size: 0.9rem;
   background: linear-gradient(to right, #04093e, #2d3d75);
 }
 
 .table thead th {
-  background: linear-gradient(to right, #04093e, #2d3d75);
-  border-color: rgba(255, 215, 0, 0.2);
-  color: white;
+  padding: 1.2rem 1rem;
   font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  color: white;
 }
 
-.table tbody td {
-  background:linear-gradient(to right, #04093e, #2d3d75);
-  border-color: rgba(255, 215, 0, 0.2);
-  color: white !important;
+.table tbody tr {
+  transform: scale(1);
+  transition: all 0.3s ease;
 }
 
 .table tbody tr:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.15);
   background-color: rgba(255, 215, 0, 0.1);
+}
+
+.table tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  background: linear-gradient(to right, #04093e, #2d3d75);
+  color: white !important;
 }
 
 .table-bordered {
@@ -159,6 +251,18 @@ input[type="date"]:focus {
 .table .status-column {
   color: white !important;
 }
+
+/* Enhanced Status Badge */
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+
 /* Loading Animation */
 .fa-spin {
   animation: fa-spin 2s infinite linear;
@@ -185,8 +289,15 @@ input[type="date"]:focus {
   }
 
   .btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
+    width: 80%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
   }
 
   .col-md-4 {
@@ -198,15 +309,21 @@ input[type="date"]:focus {
   }
 }
 
+@media (max-width: 576px) {
+  .btn {
+    width: 90%;
+  }
+}
+
 /* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 /* Card Body Styling */
@@ -222,7 +339,4 @@ input[type="date"]:focus {
 .card-body:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-}
-.timesheet-card {
-  animation: fadeIn 0.5s ease-out;
 }

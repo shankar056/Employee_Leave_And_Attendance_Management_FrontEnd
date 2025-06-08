@@ -1,9 +1,9 @@
 /* Container Styling */
 .container {
   min-height: 100vh;
-  background: linear-gradient(to right, #03162d, #030f2f);
+  background: linear-gradient(135deg, #03162d 0%, #030f2f 50%, #04093e 100%);
   color: white;
-  padding: 2rem 2rem 0 2rem;
+  padding: 2rem;
   margin: 0;
   max-width: 100%;
   position: relative;
@@ -11,37 +11,70 @@
   margin-bottom: -24px;
 }
 
-/* Card Styling */
+/* Enhanced Card Styling */
 .card, .search-card, .leave-history-card {
-  background: linear-gradient(to right, #04093e, #2d3d75);
+  background: linear-gradient(135deg, #04093e 0%, #2d3d75 100%);
   border: 2px solid #FFD700;
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.15);
   color: white;
-  border-radius: 10px;
+  border-radius: 15px;
   margin-bottom: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
 }
 
-.card:hover, .search-card:hover, .leave-history-card:hover {
-  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
-  transform: translateY(-5px);
+/* Card Shine Effect */
+.card::before, 
+.search-card::before, 
+.leave-history-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  transition: 0.5s;
 }
 
-/* Stats Styling */
+.card:hover::before,
+.search-card:hover::before,
+.leave-history-card:hover::before {
+  left: 100%;
+}
+
+.card:hover,
+.search-card:hover,
+.leave-history-card:hover {
+  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+  transform: translateY(-8px);
+}
+
+/* Enhanced Stats Styling */
 .stat-icon {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background: rgba(255, 215, 0, 0.1);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
   color: #FFD700;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .stat-icon i {
-  font-size: 24px;
+  font-size: 32px;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
 }
 
 .counter {
@@ -50,17 +83,24 @@
   color: #FFD700;
 }
 
-/* Form Controls */
-.form-control, .input-group-text, select.form-select {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+/* Enhanced Form Controls */
+.form-control, 
+.input-group-text, 
+select.form-select {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+  border: 1px solid rgba(255, 215, 0, 0.2);
   color: white;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
 }
 
-.form-control:focus, select.form-select:focus {
-  background-color: rgba(255, 255, 255, 0.15);
+.form-control:focus,
+select.form-select:focus {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.15));
   border-color: #FFD700;
-  color: white;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
 }
 
 /* Change option color for select elements */
@@ -69,19 +109,19 @@ select.form-select option {
   color: white;
 }
 
-/* Table Styling */
+/* Enhanced Table Styling */
 .table {
-  color: white;
-  margin-bottom: 0;
-  font-size: 0.9rem;
-  background: linear-gradient(to right, #04093e, #2d3d75);
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  background: transparent;
 }
 
 .table thead th {
-  background: linear-gradient(to right, #04093e, #2d3d75);
-  border-color: rgba(255, 215, 0, 0.2);
-  color: white;
+  background: linear-gradient(135deg, #04093e 0%, #2d3d75 100%);
+  border: none;
+  padding: 1.2rem 1rem;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .table tbody td {
@@ -90,8 +130,14 @@ select.form-select option {
   color: white !important;
 }
 
+.table tbody tr {
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
 .table tbody tr:hover {
-  background-color: rgba(255, 215, 0, 0.1);
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
 }
 
 .table-bordered {
@@ -109,16 +155,18 @@ select.form-select option {
   color: white !important;
 }
 
-/* Badge and Button Styling */
+/* Enhanced Badge Styling */
 .badge {
-  padding: 8px 12px;
-  border-radius: 20px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
   font-weight: 500;
-  background: rgba(255, 215, 0, 0.2);
-  color: white !important;
-  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  backdrop-filter: blur(5px);
 }
 
+/* Enhanced Button Styling */
 .btn-sm {
   padding: 0.4rem 0.8rem;
   border-radius: 5px;
@@ -130,8 +178,34 @@ select.form-select option {
 }
 
 .btn-primary {
-  background: linear-gradient(to right, #3b82f6, #60a5fa);
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
   border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
 }
 
 .btn-dark {

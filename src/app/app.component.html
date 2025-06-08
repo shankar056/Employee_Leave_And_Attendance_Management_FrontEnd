@@ -1,27 +1,27 @@
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-black shadow-sm">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a class="navbar-brand text-white bold" href="#">Employee Attendance System</a>
-      <div class="d-flex align-items-center">
-        <!-- Display username and logout button after login -->
-        <span *ngIf="isLoggedIn" class="me-3 text-white">{{ username }}</span>
-        <button *ngIf="isLoggedIn" class="btn btn-outline-light me-2" (click)="logout()">Logout</button>
-        <!-- Display sign-in button before login -->
-        <a *ngIf="!isLoggedIn" class="btn btn-outline-light me-2" routerLink="/login">Sign in</a>
+    <div class="container">
+      <!-- Left side - Brand -->
+      <a class="navbar-brand text-white bold" href="#">
+        Employee Attendance System
+      </a>
+
+      <!-- Right side - User Info and Actions -->
+      <div class="navbar-actions">
+        <div class="user-profile" *ngIf="isLoggedIn">
+          <i class="fas fa-user-circle me-2"></i>
+          <span class="username">{{ username }}</span>
+        </div>
+        <button *ngIf="isLoggedIn" class="btn btn-outline-light ms-3" (click)="logout()">
+          <i class="fas fa-sign-out-alt me-2"></i>
+          Logout
+        </button>
+        <a *ngIf="!isLoggedIn" class="btn btn-outline-light ms-3" routerLink="/login">
+          <i class="fas fa-sign-in-alt me-2"></i>
+          Sign in
+        </a>
       </div>
-      <!-- Navbar Toggler for Sidebar -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#sidebar"
-        aria-controls="sidebar"
-        aria-expanded="false"
-        aria-label="Toggle sidebar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </div>
   </nav>
 
