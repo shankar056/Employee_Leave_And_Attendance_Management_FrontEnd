@@ -40,13 +40,24 @@
                 <td>{{ shift.date | date: 'dd/MM/yyyy' }}</td>
                 <td>
                   <button
-                    class="btn btn-sm"
-                    [ngClass]="shift.swapRequested ? 'btn-secondary' : 'btn-primary'"
-                    [disabled]="shift.swapRequested"
+                    class="btn btn-sm swap-btn"
+                    [ngClass]="{
+                      'btn-primary': !shift.swapRequested && !isDatePassed(shift.date),
+                      'btn-secondary': shift.swapRequested,
+                      'btn-completed': isDatePassed(shift.date)
+                    }"
+                    [disabled]="shift.swapRequested || isDatePassed(shift.date)"
                     (click)="requestSwap(shift.id)"
                   >
-                    <i class="fas" [ngClass]="shift.swapRequested ? 'fa-check-circle' : 'fa-exchange-alt'"></i>
-                    {{ shift.swapRequested ? 'Swap Requested' : 'Request Swap' }}
+                    <i class="fas" 
+                      [ngClass]="{
+                        'fa-exchange-alt': !shift.swapRequested && !isDatePassed(shift.date),
+                        'fa-check-circle': shift.swapRequested,
+                        'fa-clock': isDatePassed(shift.date),
+                        'fa-sync-alt': shift.status === 'Swapped'
+                      }"
+                    ></i>
+                    {{ getButtonText(shift) }}
                   </button>
                 </td>
               </tr>

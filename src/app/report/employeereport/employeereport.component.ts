@@ -218,25 +218,24 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
     this.shiftChart = new Chart('shiftChart', {
       type: 'doughnut',
       data: {
-      labels: Object.keys(this.reportData.shift.shiftReport),
-      datasets: [{
-      data: Object.values(this.reportData.shift.shiftReport),
-      backgroundColor: [ '#505050','#FFD700'], // Darker grey for day, golden for night
-      hoverOffset: 4
-      }]
+        labels: Object.keys(this.reportData.shift.shiftReport),
+        datasets: [{
+          data: Object.values(this.reportData.shift.shiftReport),
+          backgroundColor: ['#505050', '#FFD700'], // Darker grey for day, golden for night
+          
+          hoverOffset: 4
+        }]
       },
       options: {
-      responsive: true,
-      plugins: {
-      legend: {
-      position: 'right'
-      },
-      title: {
-      display: true,
-      color: '#000',
-      text: 'Shift Distribution'
-      }
-      }
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              color: '#fff' // Set text color to white
+            }
+          }
+        }
       }
     });
   }

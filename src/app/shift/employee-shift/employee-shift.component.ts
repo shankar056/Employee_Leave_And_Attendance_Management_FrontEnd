@@ -57,4 +57,29 @@ export class EmployeeShiftComponent implements OnInit {
       }
     });
   }
+
+  isDatePassed(shiftDate: string): boolean {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const compareDate = new Date(shiftDate);
+    compareDate.setHours(0, 0, 0, 0);
+    return compareDate < today;
+  }
+
+  getButtonClass(shiftDate: string): string {
+    if (this.isDatePassed(shiftDate)) {
+      return 'btn-completed';
+    }
+    return 'btn-request';
+  }
+
+  getButtonText(shift: any): string {
+    if (shift.swapRequested) {
+      return 'Swap Requested';
+    }
+    if (this.isDatePassed(shift.date)) {
+      return 'Completed';
+    }
+    return 'Request Swap';
+  }
 }
