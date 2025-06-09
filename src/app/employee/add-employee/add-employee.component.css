@@ -1,7 +1,6 @@
 /* Container Styling */
 .container {
   min-height: calc(100vh - 136px);
-  background: linear-gradient(to right, #04093e, #2d3d75);
   color: white;
   padding: 2rem 0;
   margin: 0;

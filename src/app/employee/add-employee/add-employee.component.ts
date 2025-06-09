@@ -2,62 +2,81 @@ import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChange
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Employee } from '../employeeservice.service';
 import { CommonModule } from '@angular/common';
-
+ 
 @Component({
   selector: 'app-add-employee',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit, OnChanges {
-  @Input() employee: Employee | null = null; // Input for the employee to edit
-  @Output() formSubmit = new EventEmitter<Employee>(); // Output to notify parent
-  @Output() cancel = new EventEmitter<void>(); // Output to notify parent when cancel is clicked
+  @Input() employee: Employee | null = null;
+  @Output() formSubmit = new EventEmitter<Employee>();
+  @Output() cancel = new EventEmitter<void>();
+ 
   employeeForm!: FormGroup;
-
+  isEmployee = localStorage.getItem('role') === 'Employee';
+  formError: boolean = false;
+  formSuccess: boolean = false;
+ 
   constructor(private fb: FormBuilder) {}
-
+ 
   ngOnInit(): void {
     this.initializeForm();
     if (this.employee) {
-      this.employeeForm.patchValue(this.employee); // Pre-fill the form
-      console.log('Editing employee:', this.employee);
+      this.employeeForm.patchValue(this.employee);
     }
   }
-
+ 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['employee'] && this.employeeForm && this.employee) {
-      this.employeeForm.patchValue(this.employee); // Update the form when the input changes
+      this.employeeForm.patchValue(this.employee);
     }
   }
-
+ 
   initializeForm(): void {
     this.employeeForm = this.fb.group({
-      id: [{ value: null, disabled: true }], // Disabled field for id (read-only)
+      id: [{ value: null, disabled: true }],
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      role: ['Employee', [Validators.required]],
+      role: [{
+        value: 'Employee',
+        disabled: this.isEmployee
+      }, [Validators.required]],
       department: ['', [Validators.required]],
-      contactno: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+      contact: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
     });
   }
-  
+ 
   onSubmit(): void {
     if (this.employeeForm.valid) {
+      this.formError = false;
       const employeeData: Employee = {
-        ...this.employeeForm.getRawValue(), // Get all form values, including disabled fields
-        id: this.employee?.id || null // Ensure id is included for updates
+        ...this.employeeForm.getRawValue(),
+        id: this.employee?.id || null
       };
-      this.formSubmit.emit(employeeData); // Emit the updated or new employee
-      this.employeeForm.reset(); // Reset the form after submission
+     
+      this.formSuccess = true;
+      setTimeout(() => {
+        this.formSubmit.emit(employeeData);
+        this.employeeForm.reset();
+        this.formSuccess = false;
+      }, 1500);
     } else {
-      console.log('Form is invalid');
+      this.formError = true;
+      this.formSuccess = false;
+      setTimeout(() => {
+        this.formError = false;
+      }, 3000);
     }
   }
-
+ 
   onCancel(): void {
-    this.employeeForm.reset(); // Reset the form
-    this.cancel.emit(); // Notify the parent component
+    this.employeeForm.reset();
+    this.formError = false;
+    this.formSuccess = false;
+    this.cancel.emit();
   }
 }
+ 

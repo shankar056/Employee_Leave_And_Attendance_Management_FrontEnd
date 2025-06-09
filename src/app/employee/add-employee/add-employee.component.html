@@ -1,51 +1,180 @@
-<div class="card mt-4 shadow-sm">
-  <div class="card-header bg-linear-gradient(to right, #03162d, #030f2f);  text-white">
-    <h5 class="mb-0">{{ employee ? 'Edit Employee' : 'Add Employee' }}</h5>
+<div class="container mt-5">
+  <div class="card mx-auto shadow-sm" style="max-width: 600px;">
+  <div class="card-header  text-white text-center py-3">
+  <h4 class="mb-0">
+  <i class="fas" [class.fa]="!employee" [class.fa]="employee" class="me-2"></i>
+          {{ employee ? 'Edit Employee' : 'Add Employee' }}
+  </h4>
+  <p class="mb-0">{{ employee ? 'Update employee information' : 'Create new employee account' }}</p>
   </div>
-  <div class="card-body">
-    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-      <!-- ID Field (Visible only when editing) -->
-      <div class="mb-3" *ngIf="employee">
-        <label class="form-label">Employee ID</label>
-        <input
-          class="form-control"
-          formControlName="id"
-          placeholder="Employee ID"
-          [disabled]="true"
-        />
-      </div>
-
-      <!-- Other Fields -->
-      <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input class="form-control" formControlName="name" placeholder="Enter employee name" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input class="form-control" formControlName="email" placeholder="Enter employee email" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input class="form-control" type="password" formControlName="password" placeholder="Enter password" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Role</label>
-        <input class="form-control" formControlName="role" placeholder="Enter employee role" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Department</label>
-        <input class="form-control" formControlName="department" placeholder="Enter department" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Contact</label>
-        <input class="form-control" formControlName="contactno" placeholder="Enter contact number" />
-      </div>
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-secondary me-2" type="button" (click)="onCancel()">Cancel</button>
-        <button class="btn btn-primary" type="submit">
-          {{ employee ? 'Update' : 'Add' }}
-        </button>
-      </div>
-    </form>
+  <div class="card-body p-4">
+  <!-- Error Alert -->
+  <div class="alert alert-danger" *ngIf="formError" role="alert">
+  <i class="fas fa-exclamation-circle me-2"></i> 
+          {{ employee ? 'Update failed. Please check the form and try again.' : 'Employee creation failed. Please check the form and try again.' }}
   </div>
-</div>
+   
+        <!-- Success Alert -->
+  <div class="alert alert-success" *ngIf="formSuccess" role="alert">
+  <i class="fas fa-check-circle me-2"></i> 
+          {{ employee ? 'Employee updated successfully!' : 'Employee created successfully!' }}
+  </div>
+   
+        <!-- Employee Form -->
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <!-- ID Field (Visible only when editing) -->
+  <div class="mb-3" *ngIf="employee">
+  <label for="employeeId" class="form-label">Employee ID</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-id-badge"></i>
+  </span>
+  <input
+                type="text"
+                class="form-control"
+                id="employeeId"
+                formControlName="id"
+                placeholder="Employee ID"
+                [disabled]="true"
+              />
+  </div>
+  </div>
+   
+          <!-- Name Field -->
+  <div class="mb-3">
+  <label for="name" class="form-label">Name</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-user"></i>
+  </span>
+  <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                placeholder="Enter employee name"
+              />
+  </div>
+  <div class="invalid-feedback d-block" *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched">
+              Name is required.
+  </div>
+  </div>
+   
+          <!-- Email Field -->
+  <div class="mb-3">
+  <label for="email" class="form-label">Email</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-envelope"></i>
+  </span>
+  <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="Enter employee email"
+              />
+  </div>
+  <div class="invalid-feedback d-block" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+              Please enter a valid email address.
+  </div>
+  </div>
+   
+          <!-- Password Field -->
+  <div class="mb-3">
+  <label for="password" class="form-label">Password</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-lock"></i>
+  </span>
+  <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                placeholder="Enter password"
+              />
+  </div>
+  <div class="invalid-feedback d-block" *ngIf="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched">
+              Password must be at least 6 characters long.
+  </div>
+  </div>
+   
+          <!-- Role Field -->
+  <div class="mb-3">
+  <label for="role" class="form-label">Role</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-user-tag"></i>
+  </span>
+  <select class="form-select" id="role" formControlName="role">
+  <option value="" disabled>Select Role</option>
+  <option value="Employee">Employee</option>
+  <option value="Manager" [disabled]="isEmployee">Manager</option>
+  </select>
+  </div>
+  <div class="invalid-feedback d-block" *ngIf="employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched">
+              Role is required.
+  </div>
+  <small class="form-text text-muted" *ngIf="isEmployee">
+  <i class="fas fa-info-circle"></i> Role cannot be changed by employees
+  </small>
+  </div>
+   
+          <!-- Department Field -->
+  <div class="mb-3">
+  <label for="department" class="form-label">Department</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-building"></i>
+  </span>
+  <select class="form-select" id="department" formControlName="department">
+  <option value="" disabled>Select Department</option>
+  <option value="IT">IT</option>
+  <option value="HR">HR</option>
+  <option value="Finance">Finance</option>
+  <option value="Marketing">Marketing</option>
+  <option value="Sales">Sales</option>
+  <option value="Operations">Operations</option>
+  </select>
+  </div>
+  <div class="invalid-feedback d-block" *ngIf="employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched">
+              Department is required.
+  </div>
+  </div>
+   
+          <!-- Contact Field -->
+  <div class="mb-3">
+  <label for="contact" class="form-label">Contact</label>
+  <div class="input-group">
+  <span class="input-group-text bg-light text-secondary">
+  <i class="fas fa-phone"></i>
+  </span>
+  <input
+                type="tel"
+                class="form-control"
+                id="contact"
+                formControlName="contact"
+                placeholder="Enter 10-digit contact number"
+                maxlength="10"
+              />
+  </div>
+  <div class="invalid-feedback d-block" *ngIf="employeeForm.get('contact')?.invalid && employeeForm.get('contact')?.touched">
+              Contact must be exactly 10 digits.
+  </div>
+  </div>
+   
+          <!-- Buttons -->
+  <div class="d-flex justify-content-between">
+  <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+  <i class="fas fa-times me-2"></i>Cancel
+  </button>
+  <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">
+  <i class="fas" [class.fa-save]="!employee" [class.fa-edit]="employee" class="me-2"></i>
+              {{ employee ? 'Update' : 'Add Employee' }}
+  </button>
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
