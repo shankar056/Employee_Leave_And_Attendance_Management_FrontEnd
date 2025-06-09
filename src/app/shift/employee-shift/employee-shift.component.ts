@@ -45,8 +45,8 @@ export class EmployeeShiftComponent implements OnInit {
     }
   }
 
-  requestSwap(shiftId: number): void {
-    this.shiftService.requestShiftSwap(shiftId).subscribe({
+  requestSwap(employeeId: number): void {
+    this.shiftService.requestShiftSwap(employeeId).subscribe({
       next: () => {
         alert('Shift swap request submitted successfully.');
         this.fetchEmployeeShifts(parseInt(localStorage.getItem('userId') || '0', 10)); // Refresh shifts

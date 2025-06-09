@@ -119,6 +119,7 @@ select.form-select option {
 .table thead th {
   background: linear-gradient(135deg, #04093e 0%, #2d3d75 100%);
   border: none;
+  color: white;
   padding: 1.2rem 1rem;
   font-weight: 600;
   letter-spacing: 0.5px;
