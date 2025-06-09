@@ -159,7 +159,7 @@ body {
 
 .feature-card:hover {
   transform: translateY(-10px);
-  background: linear-gradient(to right, #60a5fa, #93c5fd); /* Even lighter on hover */
+  background: linear-gradient(to right, #60a5fa, #4886cd); /* Even lighter on hover */
   border-color: #FFED4A;
   box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
   animation: borderGlow 2s infinite;
