@@ -62,13 +62,13 @@ body {
 
 .image-wrapper {
   position: relative;
-  width: 103%;
-  height: 90%;
+  width: 110%;
+  height: 85%;
   border-radius: 15px;
+  left: -50px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   border: 3px solid #FFD700; /* Golden border for image */
-  /* padding: 2px; /* Small padding to separate border from image */
 } 
 
 .hero-image {
