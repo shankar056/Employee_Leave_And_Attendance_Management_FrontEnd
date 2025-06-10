@@ -47,7 +47,7 @@
   width: 0;
   height: 2px;
   background: linear-gradient(90deg, #FFD700, transparent);
-  transition: width 0.3s ease;
+  transition: width 0.3s ease; 
 }
 
 .navbar-brand:hover::after {
