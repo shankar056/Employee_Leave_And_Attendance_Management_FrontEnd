@@ -39,7 +39,7 @@ export class RegistrationComponent {
         this.registrationError = true;
         setTimeout(() => {
           this.registrationError = false;
-        }, 3000);
+        }, 2000);
       }
     });
   }

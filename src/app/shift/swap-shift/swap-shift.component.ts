@@ -72,10 +72,10 @@ export class SwapShiftComponent implements OnInit {
     today.setHours(0, 0, 0, 0);
     shift.setHours(0, 0, 0, 0);
    
-    if (shift < today) {
-      return 'Completed';
-    } else if (shift > today) {
+    if (shift > today) {
       return 'Scheduled';
+    } else if (shift < today) {
+      return 'Completed';
     } else {
       return 'Active';
     }
@@ -94,7 +94,7 @@ export class SwapShiftComponent implements OnInit {
       case 'Active':
         return 'bg-success';
       case 'Scheduled':
-        return 'bg-primary';
+        return 'bg-warning';
       default:
         return 'bg-secondary';
     }
@@ -156,3 +156,4 @@ export class SwapShiftComponent implements OnInit {
     });
   }
 }
+ 

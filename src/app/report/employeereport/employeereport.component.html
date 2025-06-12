@@ -131,19 +131,19 @@
               <td>{{record.clockOut | date:'shortTime'}}</td>
               <td>
                 <span class="badge" [ngClass]="{
-                  'bg-success': record.workHours >= 8,
-                  'bg-warning': record.workHours < 8 && record.workHours > 4,
-                  'bg-danger': record.workHours <= 4
+                  'bg-success': record.workHours >= 9,
+                  'bg-warning': record.workHours < 9 && record.workHours > 9,
+                  'bg-danger': record.workHours <= 9
                 }">
                   {{record.workHours}} hrs
                 </span>
               </td>
               <td>
                 <span class="badge" [ngClass]="{
-                  'bg-success': record.workHours >= 8,
-                  'bg-warning': record.workHours < 8
+                  'bg-success': record.workHours >= 9,
+                  'bg-danger': record.workHours < 9
                 }">
-                  {{record.workHours >= 8 ? 'Full Day' : 'Partial Day'}}
+                  {{record.workHours >= 9 ? 'Full Day' : 'Partial Day'}}
                 </span>
               </td>
             </tr>
