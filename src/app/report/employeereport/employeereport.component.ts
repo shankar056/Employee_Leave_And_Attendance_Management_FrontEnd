@@ -262,7 +262,7 @@ export class EmployeereportComponent implements OnInit, OnDestroy,OnChanges {
       'Clock In': new Date(record.clockIn).toLocaleTimeString(),
       'Clock Out': new Date(record.clockOut).toLocaleTimeString(),
       'Work Hours': record.workHours,
-      Status: record.workHours >= 8 ? 'Full Day' : 'Partial Day'
+      Status: record.workHours >= 9 ? 'Full Day' : 'Partial Day'
     }));
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);

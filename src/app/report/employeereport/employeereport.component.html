@@ -132,8 +132,8 @@
               <td>
                 <span class="badge" [ngClass]="{
                   'bg-success': record.workHours >= 9,
-                  'bg-warning': record.workHours < 9 && record.workHours > 9,
-                  'bg-danger': record.workHours <= 9
+                  'bg-warning': record.workHours > 4 && record.workHours < 9,
+                  'bg-danger': record.workHours <= 4
                 }">
                   {{record.workHours}} hrs
                 </span>
@@ -141,7 +141,7 @@
               <td>
                 <span class="badge" [ngClass]="{
                   'bg-success': record.workHours >= 9,
-                  'bg-danger': record.workHours < 9
+                  'bg-warning': record.workHours < 9
                 }">
                   {{record.workHours >= 9 ? 'Full Day' : 'Partial Day'}}
                 </span>

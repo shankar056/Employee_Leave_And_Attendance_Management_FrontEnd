@@ -68,7 +68,7 @@ export class AddEmployeeComponent implements OnInit, OnChanges {
       this.formSuccess = false;
       setTimeout(() => {
         this.formError = false;
-      }, 3000);
+      }, 2000);
     }
   }
  
